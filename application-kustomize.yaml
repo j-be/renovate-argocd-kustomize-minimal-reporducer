@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: desec-dns-operator
+spec:
+  destination:
+    namespace: desec-dns-operator
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/j-be/desec-dns-operator
+    path: config/argocd
+    targetRevision: main
+    kustomize:
+      images:
+        # This is the relevant line that should be updated
+        - controller=ghcr.io/j-be/desec-dns-operator:0.1.7
